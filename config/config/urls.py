@@ -19,5 +19,6 @@ from django.urls import include, path
 
 urlpatterns = [
     path("transcriptomics/", include("transcriptomics.urls")),
+    path("api/transcriptomics/", include("transcriptomics.api.urls")),
     path('admin/', admin.site.urls),
 ]
