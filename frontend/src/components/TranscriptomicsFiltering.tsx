@@ -24,9 +24,9 @@ const Filter: React.FC<FilterProps> = ({filters, setFilters}: FilterProps) => {
                 <label>Drop Gene IDs (one per line)</label>
                 <input type="text" name="dropGenes" value={filters.dropGenes ?? ""} onChange={handleFormChange} />
                 <label>Minimum Mean Expression</label>
-                <input type="number" name="minMean" value={filters.minMeanExpression ?? ""} onChange={handleFormChange} />
+                <input type="number" name="minMeanExpression" value={filters.minMeanExpression ?? "0"} onChange={handleFormChange} />
                 <label>Minimum Variance</label>
-                <input type="number" name="minVariance" value={filters.minVariance ?? ""} onChange={handleFormChange} />
+                <input type="number" name="minVariance" value={filters.minVariance ?? "0"} onChange={handleFormChange} />
             </form>
         </div>
     )
