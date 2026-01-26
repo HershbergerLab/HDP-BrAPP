@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import FileUpload from './FileUpload';
 import Filter from './TranscriptomicsFiltering'
+import Dashboard, { PcaResponse } from './PCADataDashboard'
 
 export interface Filters {
     keepGenes?: string;
@@ -11,7 +12,11 @@ export interface Filters {
     minVariance?: number;
 }
 
-const Upload = () => {
+interface PcaProps {
+    onGetData: (data: PcaResponse) => void;
+}
+
+const Upload = ({onGetData}: PcaProps) => {
     const [matrixFile, setMatrixFile] = useState<File | null>(null);
     const [metadataFile, setMetaDataFile] = useState<File | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -38,8 +43,10 @@ const Upload = () => {
         formData.append("filters", JSON.stringify(filters));
 
         try {
-            await axios.post("http://localhost:8000/api/transcriptomics/analyze/", formData, { 
-                headers: { "Content-Type": "multipart/form-data" } } );
+            const res = await axios.post("http://localhost:8000/api/transcriptomics/analyze/", formData, { headers: { "Content-Type": "multipart/form-data" } } );
+            const data = await res.data;
+            console.log("response", data);
+            onGetData(data);            
         } catch (err) {
             setError("Upload failed");
         } finally {
