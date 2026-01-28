@@ -7,7 +7,7 @@ interface FilterProps {
 }
 
 const Filter: React.FC<FilterProps> = ({filters, setFilters}: FilterProps) => {
-    const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
 
         setFilters((prev) => ({
@@ -17,17 +17,65 @@ const Filter: React.FC<FilterProps> = ({filters, setFilters}: FilterProps) => {
     };
 
     return (
-        <div className="mx-auto mt-6 rounded-2xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 p-6 h-500 w-50">
-            <form>
-                <label>Keep Gene IDs (one per line)</label>
-                <input type="text" name="keepGenes" value={filters.keepGenes ?? ""} onChange={handleFormChange} />
-                <label>Drop Gene IDs (one per line)</label>
-                <input type="text" name="dropGenes" value={filters.dropGenes ?? ""} onChange={handleFormChange} />
-                <label>Minimum Mean Expression</label>
-                <input type="number" name="minMeanExpression" value={filters.minMeanExpression ?? "0"} onChange={handleFormChange} />
-                <label>Minimum Variance</label>
-                <input type="number" name="minVariance" value={filters.minVariance ?? "0"} onChange={handleFormChange} />
-            </form>
+        <div className = "filter-container">
+            <h3 className="filter-title">Gene Filtering</h3>
+            <p className="filter-subtitle">
+                Choose which genes to keep or remove from analysis.
+            </p>
+
+            <div className="filter-group">
+                <label className="filter-label">
+                Keep Gene IDs
+                <span className="filter-hint">One per line</span>
+                </label>
+                <textarea
+                name="keepGenes"
+                value={filters.keepGenes ?? ""}
+                onChange={handleFormChange}
+                placeholder="TP53\nBRCA1\nMYC"
+                rows={3}
+                />
+            </div>
+
+            <div className="filter-group">
+                <label className="filter-label">
+                Drop Gene IDs
+                <span className="filter-hint">One per line</span>
+                </label>
+                <textarea
+                name="dropGenes"
+                value={filters.dropGenes ?? ""}
+                onChange={handleFormChange}
+                placeholder="GAPDH\nACTB"
+                rows={3}
+                />
+            </div>
+
+            <div className="filter-grid">
+                <div className="filter-group">
+                <label className="filter-label">Minimum Mean Expression</label>
+                <input
+                    type="number"
+                    name="minMeanExpression"
+                    value={filters.minMeanExpression ?? 0}
+                    onChange={handleFormChange}
+                    min={0}
+                    step={0.01}
+                />
+                </div>
+
+                <div className="filter-group">
+                <label className="filter-label">Minimum Variance</label>
+                <input
+                    type="number"
+                    name="minVariance"
+                    value={filters.minVariance ?? 0}
+                    onChange={handleFormChange}
+                    min={0}
+                    step={0.01}
+                />
+                </div>
+            </div>
         </div>
     )
 }

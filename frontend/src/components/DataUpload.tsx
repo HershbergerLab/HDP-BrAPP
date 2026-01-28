@@ -55,14 +55,30 @@ const Upload = ({onGetData}: PcaProps) => {
     };
 
     return(
-        <div className="mx-auto mt-6 rounded-2xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 p-6 h-500 w-50">
-        <h2>Upload Transcriptomics Data</h2>
-        <h3>Upload Expression Matrix (csv)</h3>
-        <FileUpload label={'Expression Matrix File'} onFileSelect={setMatrixFile}/>
-        <h3>Upload Gene Metadata</h3>
-        <FileUpload label={'Gene Metadata File'} onFileSelect={setMetaDataFile} />
-        <Filter filters={filters} setFilters={setFilters}/>
-        <button onClick={onFileUpload} disabled={!matrixFile || !metadataFile || loading}>{loading ? "Uploading..." : "Upload"}</button>
+        <div className="upload-container">
+            <h2 className="upload-title">Upload Transcriptomics Data</h2>
+            <p className="upload-subtitle">
+                Upload your expression matrix and gene metadata to run PCA analysis.
+            </p>
+            <div className="upload-section">
+                <label className="upload-label">Expression Matrix (CSV)</label>
+                <FileUpload label={'Expression Matrix File'} onFileSelect={setMatrixFile}/>
+            </div>
+
+            <div className="upload-section">
+                <label className="upload-label">Gene Metadata</label>
+                <FileUpload label={'Gene Metadata File'} onFileSelect={setMetaDataFile}/>
+            </div>
+
+        <div className="divider" />
+
+        <Filter filters={filters} setFilters={setFilters} />
+
+        <button className="upload-button" onClick={onFileUpload} disabled={!matrixFile || !metadataFile || loading} >
+            {loading ? "Loading...": "Run PCA Analysis"}
+        </button>
+    
+        
         </div>
     );
 };

@@ -25,23 +25,41 @@ const PlotPCA = ({pcaData}: PcaProps) => {
     return(
         <div>
             <h3>Graph</h3>
-            <h4>Select PC x:</h4>
-            <select value={pcX} onChange={(e) => setPcX(String(e.target.value))} >
-                {pcaLabels.map((label: string, index: number) => (
-                    <option key={label} value={index}>
-                        {label}
-                    </option>
-                ))}
-            </select>
+            <div className="axis-controls">
+            <h3 className="axis-title">Graph Axes</h3>
 
-            <h4>Select PC Y:</h4>
-            <select value={pcY} onChange={(e) => setPcY(String(e.target.value))} >
-                {pcaLabels.map((label: string, index: number) => (
+            <div className="axis-row">
+                <label className="axis-label">X Axis</label>
+                <div className="select-wrapper">
+                <select
+                    value={pcX}
+                    onChange={(e) => setPcX(String(e.target.value))}
+                >
+                    {pcaLabels.map((label: string, index: number) => (
                     <option key={label} value={index}>
                         {label}
                     </option>
-                ))}
-            </select>
+                    ))}
+                </select>
+                </div>
+            </div>
+
+            <div className="axis-row">
+                <label className="axis-label">Y Axis</label>
+                <div className="select-wrapper">
+                <select
+                    value={pcY}
+                    onChange={(e) => setPcY(String(e.target.value))}
+                >
+                    {pcaLabels.map((label: string, index: number) => (
+                    <option key={label} value={index}>
+                        {label}
+                    </option>
+                    ))}
+                </select>
+                </div>
+            </div>
+            </div>
             <div style={{ width: "100%", height: "500px" }}>
                 <Plot
                     data={[
